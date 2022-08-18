@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from prueba_tecnica.views import properties_list, properties_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', properties_list),
+    path('propertiespage', properties_page),
 ]
+
+
