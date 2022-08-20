@@ -1,6 +1,6 @@
 import requests
 
-class EasyBrokerAPIReader:
+class EasyBrokerAPIManager:
     
     def __init__(self, auth_token):
         self.auth_token = auth_token
@@ -12,4 +12,10 @@ class EasyBrokerAPIReader:
         except Exception as error:
             return str(error)
 
+    def post_contact_requests(self, url, json_data):
+        try:
+            response = requests.post(url, headers = {"X-Authorization": self.auth_token, "accept":"application/json"}, json=json_data)
+            return response
+        except Exception as error:
+            return str(error)
            
