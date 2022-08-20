@@ -2,6 +2,65 @@
 
 {% block title %} Properties list page {% endblock %}
 
-{% block body %} 
-<p>Properties list page</p>
+{% block styles %}
+<style>
+    a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover{
+      background-color: #DBDBDB;
+    }
+</style>
 {% endblock %}
+
+
+{% block body %} 
+<div class="container">
+{% if content %}
+  {% for property in content %}
+    <a href="/propertiespage/?public_id={{ property.public_id }}"> 
+        <div class="card col-md-6 offset-md-3">
+            <div class="card-header">
+                <p> <b>ID: </b> {{ property.public_id }}  </p>
+                <p> <b>Title: </b> {{ property.title }}  </p>
+            </div>
+            <div class="card-body">
+                <img src="{{ property.title_image_thumb }}" alt="Imagen propiedad">
+            </div>
+            <div class="card-footer">
+                <p>  <b>Type: </b>{{ property.property_type }}  </p>
+                <p>  <b>Location: </b>{{ property.location }}  </p>
+            </div>
+        </div>
+    </a>
+    <br>
+  {% endfor %}
+{% endif %}
+
+    <a id="next_page_button" href="">
+        <button class="btn btn-primary float-right"  type="button">Next Page -></button>
+    </a>
+
+    </br>
+    </br>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        // Obtenemos el numero de pagina siguiente
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var page = urlParams.get('page');
+        page = parseInt(page) + 1;
+
+        //Asignamos la ruta de la siguiente pagina
+        $("#next_page_button").attr("href", "?page=" + page)  ;
+    });
+</script>
+{% endblock %}
+
+

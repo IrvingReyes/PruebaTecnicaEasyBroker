@@ -20,7 +20,7 @@ from prueba_tecnica.views import properties_list, properties_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', properties_list),
-    path('propertiespage', properties_page),
+    path('propertiespage/', properties_page),
 ]
 
 
