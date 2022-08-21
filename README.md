@@ -1,4 +1,4 @@
-# Prueba Tecnica de EasyBroker
+# Prueba Técnica de EasyBroker
 Este repositorio es para la prueba técnica para Software Developer Intern en EasyBroker.
 
 El proyecto  consiste  un sitio web conectado a una cuenta de EasyBroker con todas sus propiedades publicadas. El sitio web consta de dos páginas principales: la página del listado de propiedades y la página de propiedades.

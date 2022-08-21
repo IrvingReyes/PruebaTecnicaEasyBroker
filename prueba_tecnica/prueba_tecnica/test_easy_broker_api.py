@@ -8,8 +8,8 @@ from nose.tools import assert_is_not_none, assert_is_none, assert_equal
 from prueba_tecnica.easy_broker_api import EasyBrokerAPIManager
 
 
-def test_easy_broker_api_manager_post_contact_requests():
-    #Hacemos un mock de requests.get
+def test_easy_broker_api_manager_get_properties():
+    #Hacemos un mock de requests.get 
     with patch('prueba_tecnica.easy_broker_api.requests.get') as mock_get:
         # Creamos una respuesta predecible
         json_data = [{
@@ -35,3 +35,17 @@ def test_easy_broker_api_manager_post_contact_requests():
     assert_is_not_none(response)
     assert_equal(response, json_data)
 
+def test_easy_broker_api_manager_post_contact_requests():
+    #Hacemos un mock de requests.post 
+    with patch('prueba_tecnica.easy_broker_api.requests.post') as mock_get:
+        json_data = {'status': 'successful'}
+
+        mock_get.return_value = json_data
+
+        eb_api = EasyBrokerAPIManager("Filler")
+        response = eb_api.post_contact_requests('Filler','Filler')
+
+        print(response)
+
+    assert_is_not_none(response)
+    assert_equal(response, json_data)
