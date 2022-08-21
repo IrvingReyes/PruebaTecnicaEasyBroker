@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from prueba_tecnica.api import EasyBrokerAPIManager
+from prueba_tecnica.easy_broker_api import EasyBrokerAPIManager
 import json
 
 def properties_list(request):
@@ -65,15 +65,15 @@ def properties_page(request):
         response = eb_api.post_contact_requests(url, json_data)
 
         print(response)
+        print(type(response))
         print(response.text)
+        
         url = "https://api.stagingeb.com/v1/properties/" + publicid
         jsonresponse = eb_api.get_properties(url)
         context = jsonresponse
 
-        print("Llega")
 
         context['response'] =  json.loads(response.text)
-        print(context)
-        print("Llega")
+
 
         return render(request, html, context)

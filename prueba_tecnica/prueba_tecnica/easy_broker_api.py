@@ -1,7 +1,7 @@
 import requests
 
 class EasyBrokerAPIManager:
-    
+    auth_token = str
     def __init__(self, auth_token):
         self.auth_token = auth_token
 
