@@ -3,15 +3,7 @@
 {% block title %} Properties list page {% endblock %}
 
 {% block styles %}
-<style>
-    a, a:hover, a:focus, a:active {
-      text-decoration: none;
-      color: inherit;
-    }
-    .card:hover{
-      background-color: #DBDBDB;
-    }
-</style>
+<link rel="stylesheet" href="/static/css/properties.css">
 {% endblock %}
 
 
@@ -19,8 +11,9 @@
 <div class="container" style="margin-top: 40px;">
 {% if content %}
   {% for property in content %}
-    <a href="/propertiespage/?public_id={{ property.public_id }}"> 
+    
         <div class="card col-md-6 offset-md-3">
+            <a href="/propertiespage/?public_id={{ property.public_id }}"> 
             <div class="card-header">
                 <p> <b>ID: </b> {{ property.public_id }}  </p>
                 <p> <b>Title: </b> {{ property.title }}  </p>
@@ -31,17 +24,20 @@
             <div class="card-footer">
                 <p>  <b>Type: </b>{{ property.property_type }}  </p>
                 <p>  <b>Location: </b>{{ property.location }}  </p>
-            </div>
+            </div></a>
         </div>
-    </a>
+    
     <br>
   {% endfor %}
 {% endif %}
-
-    <a id="next_page_button" href="">
-        <button class="btn btn-primary float-right"  type="button">Next Page -></button>
-    </a>
-
+    <div>
+        <a id="prev_page_button" href="">
+            <button class="btn btn-primary float-left"  type="button"> <- Previous </button>
+        </a>
+        <a id="next_page_button" href="">
+            <button class="btn btn-primary float-right"  type="button">Next Page -></button>
+        </a>
+    </div> 
     </br>
     </br>
 
@@ -49,16 +45,31 @@
 {% endblock %}
 
 {% block script %}
+
 <script>
     $(document).ready(function(){
         // Obtenemos el numero de pagina siguiente
         var queryString = window.location.search;
         var urlParams = new URLSearchParams(queryString);
         var page = urlParams.get('page');
-        page = parseInt(page) + 1;
 
-        //Asignamos la ruta de la siguiente pagina
-        $("#next_page_button").attr("href", "?page=" + page)  ;
+        if (!isNaN(page) ){
+            //Asignamos la ruta de la siguiente pagina
+            $("#next_page_button").attr("href", "?page=" + (parseInt(page)+1))  ;
+            if(page==1){
+                //Removemos el boton previo en casode ser la pagina 1
+                $("#prev_page_button").remove()
+            }
+            else{
+                $("#prev_page_button").attr("href", "?page=" + (parseInt(page)-1))  ;
+            }
+        
+        }
+        else{
+            window.location.href = "/?page=1"
+        }
+        
+        
     });
 </script>
 {% endblock %}
